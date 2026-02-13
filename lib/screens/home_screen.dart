@@ -12,9 +12,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint('HomeScreen.build: isDark=${Theme.of(context).brightness == Brightness.dark}, '
-        'bgColor=${AppColors.background}, '
-        'themePref=${AppColors.background == const Color(0xFF221810) ? "DARK" : "LIGHT"}');
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
