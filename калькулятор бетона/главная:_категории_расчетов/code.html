@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ru"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BuildCalc - Главная: Популярное и поиск</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f2780d",
+                        "background-light": "#f8f7f5",
+                        "background-dark": "#221810",
+                        "surface-variant": "#F2EBE6",
+                        "on-surface-variant": "#52443C",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "3xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    boxShadow: {
+                        'elevation-1': '0 1px 2px 0 rgba(0, 0, 0, 0.05), 0 1px 3px 0 rgba(0, 0, 0, 0.1)',
+                        'elevation-2': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .ripple {
+            position: relative;
+            overflow: hidden;
+            transform: translate3d(0, 0, 0);
+        }
+        .ripple:after {
+            content: "";
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            background-image: radial-gradient(circle, #f2780d 10%, transparent 10.01%);
+            background-repeat: no-repeat;
+            background-position: 50%;
+            transform: scale(10, 10);
+            opacity: 0;
+            transition: transform .5s, opacity 1s;
+        }
+        .ripple:active:after {
+            transform: scale(0, 0);
+            opacity: 0.1;
+            transition: 0s;
+        }
+        .safe-pb {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-900 dark:text-gray-100 min-h-screen flex flex-col antialiased selection:bg-primary/30">
+<header class="sticky top-0 z-50 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-md pt-14 pb-4 px-4 border-b border-primary/10 transition-colors duration-300">
+<div class="max-w-md mx-auto w-full space-y-4">
+<div class="flex justify-between items-center">
+<h1 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
+                    Главная
+                </h1>
+<button class="p-2 rounded-full hover:bg-surface-variant dark:hover:bg-primary/10 transition-colors text-on-surface-variant dark:text-primary/80">
+<span class="material-symbols-outlined !text-[28px]">notifications</span>
+</button>
+</div>
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-gray-500 group-focus-within:text-primary transition-colors">search</span>
+</div>
+<input class="block w-full pl-12 pr-4 py-3.5 bg-surface-variant dark:bg-primary/10 border-none rounded-full text-gray-900 dark:text-gray-100 placeholder-gray-500 focus:ring-2 focus:ring-primary/50 focus:bg-white dark:focus:bg-background-dark shadow-sm transition-all duration-300 text-base" placeholder="Поиск расчета (например, бетон, плитка)..." type="text"/>
+<div class="absolute inset-y-0 right-0 pr-2 flex items-center">
+<button class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-primary/20 text-gray-500">
+<span class="material-symbols-outlined !text-[20px]">mic</span>
+</button>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-grow px-4 py-6 max-w-md mx-auto w-full pb-32">
+<div class="mb-8">
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-lg font-semibold text-gray-900 dark:text-white">Популярное</h2>
+</div>
+<div class="flex space-x-4 overflow-x-auto pb-4 snap-x snap-mandatory -mx-4 px-4 scrollbar-hide">
+<button class="ripple group bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-elevation-1 hover:shadow-elevation-2 active:scale-[0.98] transition-all duration-200 flex-none w-40 snap-start border border-gray-100 dark:border-gray-700">
+<div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors duration-300 mb-3">
+<span class="material-symbols-outlined text-primary text-2xl group-hover:text-white transition-colors">foundation</span>
+</div>
+<div class="text-left">
+<h3 class="text-base font-bold text-gray-900 dark:text-white">Бетон</h3>
+<p class="text-[11px] text-gray-500 mt-1 leading-tight">Объем м³, состав</p>
+</div>
+</button>
+<button class="ripple group bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-elevation-1 hover:shadow-elevation-2 active:scale-[0.98] transition-all duration-200 flex-none w-40 snap-start border border-gray-100 dark:border-gray-700">
+<div class="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors duration-300 mb-3">
+<span class="material-symbols-outlined text-primary text-2xl group-hover:text-white transition-colors">format_paint</span>
+</div>
+<div class="text-left">
+<h3 class="text-base font-bold text-gray-900 dark:text-white">Покраска</h3>
+<p class="text-[11px] text-gray-500 mt-1 leading-tight">Площадь, слои</p>
+</div>
+</button>
+<button class="ripple group bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-elevation-1 hover:shadow-elevation-2 active:scale-[0.98] transition-all duration-200 flex-none w-40 snap-start border border-gray-100 dark:border-gray-700">
+<div class="w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-900/20 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors duration-300 mb-3">
+<span class="material-symbols-outlined text-primary text-2xl group-hover:text-white transition-colors">grid_view</span>
+</div>
+<div class="text-left">
+<h3 class="text-base font-bold text-gray-900 dark:text-white">Плитка</h3>
+<p class="text-[11px] text-gray-500 mt-1 leading-tight">Раскладка, клей</p>
+</div>
+</button>
+</div>
+</div>
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-lg font-semibold text-gray-900 dark:text-white">Все инструменты</h2>
+<button class="text-sm font-medium text-primary hover:text-primary/80">Фильтр</button>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<button class="ripple group bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-elevation-1 hover:shadow-elevation-2 active:scale-[0.98] transition-all duration-200 flex flex-col items-start space-y-3 border border-gray-100 dark:border-gray-700">
+<div class="w-12 h-12 rounded-xl bg-red-50 dark:bg-red-900/20 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+<span class="material-symbols-outlined text-primary text-3xl group-hover:text-white transition-colors">wall_art</span>
+</div>
+<div class="text-left">
+<h3 class="text-lg font-bold text-gray-900 dark:text-white">Кирпич</h3>
+<p class="text-xs text-gray-500 mt-1">Кладка, блоки</p>
+</div>
+</button>
+<button class="ripple group bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-elevation-1 hover:shadow-elevation-2 active:scale-[0.98] transition-all duration-200 flex flex-col items-start space-y-3 border border-gray-100 dark:border-gray-700">
+<div class="w-12 h-12 rounded-xl bg-purple-50 dark:bg-purple-900/20 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+<span class="material-symbols-outlined text-primary text-3xl group-hover:text-white transition-colors">brush</span>
+</div>
+<div class="text-left">
+<h3 class="text-lg font-bold text-gray-900 dark:text-white">Штукатурка</h3>
+<p class="text-xs text-gray-500 mt-1">Расход смеси</p>
+</div>
+</button>
+<button class="ripple group bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-elevation-1 hover:shadow-elevation-2 active:scale-[0.98] transition-all duration-200 flex flex-col items-start space-y-3 border border-gray-100 dark:border-gray-700">
+<div class="w-12 h-12 rounded-xl bg-teal-50 dark:bg-teal-900/20 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+<span class="material-symbols-outlined text-primary text-3xl group-hover:text-white transition-colors">roofing</span>
+</div>
+<div class="text-left">
+<h3 class="text-lg font-bold text-gray-900 dark:text-white">Кровля</h3>
+<p class="text-xs text-gray-500 mt-1">Черепица, профнастил</p>
+</div>
+</button>
+<button class="ripple group bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-elevation-1 hover:shadow-elevation-2 active:scale-[0.98] transition-all duration-200 flex flex-col items-start space-y-3 border border-gray-100 dark:border-gray-700">
+<div class="w-12 h-12 rounded-xl bg-yellow-50 dark:bg-yellow-900/20 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+<span class="material-symbols-outlined text-primary text-3xl group-hover:text-white transition-colors">ac_unit</span>
+</div>
+<div class="text-left">
+<h3 class="text-lg font-bold text-gray-900 dark:text-white">Утепление</h3>
+<p class="text-xs text-gray-500 mt-1">Минвата, пенопласт</p>
+</div>
+</button>
+<button class="ripple group bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-elevation-1 hover:shadow-elevation-2 active:scale-[0.98] transition-all duration-200 flex flex-col items-start space-y-3 border border-gray-100 dark:border-gray-700">
+<div class="w-12 h-12 rounded-xl bg-pink-50 dark:bg-pink-900/20 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+<span class="material-symbols-outlined text-primary text-3xl group-hover:text-white transition-colors">imagesearch_roller</span>
+</div>
+<div class="text-left">
+<h3 class="text-lg font-bold text-gray-900 dark:text-white">Обои</h3>
+<p class="text-xs text-gray-500 mt-1">Расчет рулонов</p>
+</div>
+</button>
+<button class="ripple group bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-elevation-1 hover:shadow-elevation-2 active:scale-[0.98] transition-all duration-200 flex flex-col items-start space-y-3 border border-gray-100 dark:border-gray-700">
+<div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+<span class="material-symbols-outlined text-primary text-3xl group-hover:text-white transition-colors">foundation</span>
+</div>
+<div class="text-left">
+<h3 class="text-lg font-bold text-gray-900 dark:text-white">Бетон</h3>
+<p class="text-xs text-gray-500 mt-1">Фундамент, стяжка</p>
+</div>
+</button>
+</div>
+</main>
+<div class="fixed bottom-24 right-4 z-40 max-w-md w-full mx-auto pointer-events-none flex justify-end px-4">
+<button class="pointer-events-auto bg-primary text-white py-4 px-6 rounded-2xl shadow-lg shadow-primary/40 hover:shadow-primary/60 hover:scale-105 active:scale-95 transition-all duration-300 flex items-center space-x-2 group">
+<span class="material-symbols-outlined !text-[24px]">add</span>
+<span class="font-semibold text-sm">Новый расчет</span>
+</button>
+</div>
+<nav class="fixed bottom-0 w-full bg-background-light dark:bg-background-dark border-t border-primary/10 safe-pb z-50">
+<div class="max-w-md mx-auto h-20 flex justify-around items-center px-2">
+<button class="flex flex-col items-center justify-center w-20 group">
+<div class="w-16 h-8 bg-primary/20 rounded-full flex items-center justify-center mb-1 transition-colors">
+<span class="material-symbols-outlined text-primary !text-[24px]">home</span>
+</div>
+<span class="text-xs font-bold text-primary tracking-wide">Главная</span>
+</button>
+<button class="flex flex-col items-center justify-center w-20 group text-gray-500 dark:text-gray-400 hover:text-primary transition-colors">
+<div class="w-16 h-8 rounded-full flex items-center justify-center mb-1 group-hover:bg-primary/5 transition-colors">
+<span class="material-symbols-outlined !text-[24px]">history</span>
+</div>
+<span class="text-xs font-medium tracking-wide">История</span>
+</button>
+<button class="flex flex-col items-center justify-center w-20 group text-gray-500 dark:text-gray-400 hover:text-primary transition-colors">
+<div class="w-16 h-8 rounded-full flex items-center justify-center mb-1 group-hover:bg-primary/5 transition-colors">
+<span class="material-symbols-outlined !text-[24px]">settings</span>
+</div>
+<span class="text-xs font-medium tracking-wide">Настройки</span>
+</button>
+</div>
+</nav>
+
+</body></html>
