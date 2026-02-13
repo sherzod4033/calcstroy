@@ -338,7 +338,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         backgroundColor: AppColors.background,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppColors.textPrimary),
+          icon: Icon(Icons.arrow_back, color: AppColors.textPrimary),
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
@@ -528,7 +528,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                                 AnimatedRotation(
                                   turns: _parametersExpanded ? 0.5 : 0,
                                   duration: const Duration(milliseconds: 200),
-                                  child: const Icon(
+                                  child: Icon(
                                     Icons.expand_more,
                                     color: AppColors.textHint,
                                   ),
@@ -569,7 +569,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                                     child: DropdownButton<String>(
                                       value: _selectedGrade,
                                       isExpanded: true,
-                                      icon: const Icon(
+                                      icon: Icon(
                                         Icons.arrow_drop_down,
                                         color: AppColors.textHint,
                                       ),

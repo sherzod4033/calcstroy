@@ -1,28 +1,31 @@
 import 'package:flutter/material.dart';
+import '../core/app_colors.dart';
 
 class CalculatorCategory {
   final String name;
   final String description;
   final IconData icon;
-  final Color backgroundColor;
+  final Color Function() _backgroundColorGetter;
   final String type;
   final String imagePath;
+
+  Color get backgroundColor => _backgroundColorGetter();
 
   const CalculatorCategory({
     required this.name,
     required this.description,
     required this.icon,
-    required this.backgroundColor,
+    required Color Function() backgroundColorGetter,
     required this.type,
     required this.imagePath,
-  });
+  }) : _backgroundColorGetter = backgroundColorGetter;
 
-  static const List<CalculatorCategory> popular = [
+  static final List<CalculatorCategory> popular = [
     CalculatorCategory(
       name: 'Бетон',
       description: 'Объем м³, состав',
       icon: Icons.foundation,
-      backgroundColor: Color(0xFFFFF0E5),
+      backgroundColorGetter: () => AppColors.primaryLight,
       type: 'concrete',
       imagePath: 'assets/images/concrete.png',
     ),
@@ -30,7 +33,7 @@ class CalculatorCategory {
       name: 'Покраска',
       description: 'Площадь, слои',
       icon: Icons.format_paint,
-      backgroundColor: Color(0xFFEFF6FF),
+      backgroundColorGetter: () => AppColors.categoryBlue,
       type: 'paint',
       imagePath: 'assets/images/paint.png',
     ),
@@ -38,18 +41,18 @@ class CalculatorCategory {
       name: 'Плитка',
       description: 'Раскладка, клей',
       icon: Icons.grid_view,
-      backgroundColor: Color(0xFFFFFBEB),
+      backgroundColorGetter: () => AppColors.categoryYellow,
       type: 'tile',
       imagePath: 'assets/images/tile.png',
     ),
   ];
 
-  static const List<CalculatorCategory> all = [
+  static final List<CalculatorCategory> all = [
     CalculatorCategory(
       name: 'Кирпич',
       description: 'Кладка, блоки',
       icon: Icons.view_compact,
-      backgroundColor: Color(0xFFFEF2F2),
+      backgroundColorGetter: () => AppColors.categoryRed,
       type: 'brick',
       imagePath: 'assets/images/brick.png',
     ),
@@ -57,7 +60,7 @@ class CalculatorCategory {
       name: 'Штукатурка',
       description: 'Расход смеси',
       icon: Icons.brush,
-      backgroundColor: Color(0xFFFAF5FF),
+      backgroundColorGetter: () => AppColors.categoryPurple,
       type: 'plaster',
       imagePath: 'assets/images/plaster.png',
     ),
@@ -65,7 +68,7 @@ class CalculatorCategory {
       name: 'Кровля',
       description: 'Черепица, профнастил',
       icon: Icons.roofing,
-      backgroundColor: Color(0xFFF0FDFA),
+      backgroundColorGetter: () => AppColors.categoryTeal,
       type: 'roofing',
       imagePath: 'assets/images/roofing.png',
     ),
@@ -73,7 +76,7 @@ class CalculatorCategory {
       name: 'Утепление',
       description: 'Минвата, пенопласт',
       icon: Icons.ac_unit,
-      backgroundColor: Color(0xFFFFFBEB),
+      backgroundColorGetter: () => AppColors.categoryYellow,
       type: 'insulation',
       imagePath: 'assets/images/insulation.png',
     ),
@@ -81,7 +84,7 @@ class CalculatorCategory {
       name: 'Обои',
       description: 'Расчет рулонов',
       icon: Icons.wallpaper,
-      backgroundColor: Color(0xFFFDF2F8),
+      backgroundColorGetter: () => AppColors.categoryPink,
       type: 'wallpaper',
       imagePath: 'assets/images/wallpaper.png',
     ),
@@ -89,7 +92,7 @@ class CalculatorCategory {
       name: 'Бетон',
       description: 'Фундамент, стяжка',
       icon: Icons.foundation,
-      backgroundColor: Color(0xFFFFF0E5),
+      backgroundColorGetter: () => AppColors.primaryLight,
       type: 'concrete',
       imagePath: 'assets/images/concrete.png',
     ),

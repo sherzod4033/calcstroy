@@ -12,6 +12,9 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint('HomeScreen.build: isDark=${Theme.of(context).brightness == Brightness.dark}, '
+        'bgColor=${AppColors.background}, '
+        'themePref=${AppColors.background == const Color(0xFF221810) ? "DARK" : "LIGHT"}');
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
@@ -42,7 +45,7 @@ class HomeScreen extends StatelessWidget {
                           context,
                           'Уведомления будут добавлены позже',
                         ),
-                        icon: const Icon(
+                        icon: Icon(
                           Icons.notifications_outlined,
                           color: AppColors.onSurfaceVariant,
                           size: 26,
@@ -77,16 +80,13 @@ class HomeScreen extends StatelessWidget {
                         color: AppColors.textHint,
                         fontSize: 15,
                       ),
-                      prefixIcon: const Icon(
-                        Icons.search,
-                        color: AppColors.textHint,
-                      ),
+                      prefixIcon: Icon(Icons.search, color: AppColors.textHint),
                       suffixIcon: IconButton(
                         onPressed: () => _showFeatureMessage(
                           context,
                           'Голосовой поиск пока недоступен',
                         ),
-                        icon: const Icon(
+                        icon: Icon(
                           Icons.mic_none,
                           color: AppColors.textHint,
                           size: 20,
@@ -345,7 +345,7 @@ class _CategoryDesignCard extends StatelessWidget {
             Expanded(
               child: Container(
                 width: double.infinity,
-                color: const Color(0xFFE9E9E9),
+                color: AppColors.secondaryBackground,
                 padding: EdgeInsets.all(14 * scale),
                 child: Image.asset(
                   category.imagePath,

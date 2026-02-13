@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import '../core/app_colors.dart';
 import '../models/calculation_history.dart';
 import '../models/calculator_category.dart';
+import '../services/app_settings_controller.dart';
 import '../services/history_storage.dart';
 import 'calculator_screen.dart';
 import 'results_screen.dart';
@@ -26,17 +27,25 @@ class _HistoryScreenState extends State<HistoryScreen> {
   void initState() {
     super.initState();
     HistoryStorage.changes.addListener(_onHistoryChanged);
+    AppSettingsController.instance.addListener(_onSettingsChanged);
     _loadHistory();
   }
 
   @override
   void dispose() {
     HistoryStorage.changes.removeListener(_onHistoryChanged);
+    AppSettingsController.instance.removeListener(_onSettingsChanged);
     super.dispose();
   }
 
   void _onHistoryChanged() {
     _loadHistory();
+  }
+
+  void _onSettingsChanged() {
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   Future<void> _loadHistory() async {
@@ -99,7 +108,10 @@ class _HistoryScreenState extends State<HistoryScreen> {
   }
 
   String _formatTime(DateTime dateTime) {
-    return DateFormat('HH:mm').format(dateTime);
+    return DateFormat(
+      'HH:mm',
+      AppSettingsController.instance.locale.languageCode,
+    ).format(dateTime);
   }
 
   Future<void> _clearHistory() async {
@@ -286,6 +298,10 @@ class _HistoryScreenState extends State<HistoryScreen> {
                               item: item,
                               timeLabel: DateFormat(
                                 'dd.MM.yy HH:mm',
+                                AppSettingsController
+                                    .instance
+                                    .locale
+                                    .languageCode,
                               ).format(item.createdAt),
                               onTap: () => _openHistoryItem(item),
                             ),
@@ -415,11 +431,7 @@ class _HistoryCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 8),
-                const Icon(
-                  Icons.chevron_right,
-                  color: AppColors.outline,
-                  size: 20,
-                ),
+                Icon(Icons.chevron_right, color: AppColors.outline, size: 20),
               ],
             ),
           ),
@@ -439,10 +451,10 @@ class _EmptyState extends StatelessWidget {
           width: 120,
           height: 120,
           decoration: BoxDecoration(
-            color: const Color(0xFFFAFAFA),
+            color: AppColors.secondaryBackground,
             borderRadius: BorderRadius.circular(60),
           ),
-          child: const Icon(
+          child: Icon(
             Icons.calculate_outlined,
             size: 56,
             color: AppColors.outline,

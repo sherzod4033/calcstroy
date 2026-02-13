@@ -109,9 +109,9 @@ class _GableRoofCalculatorScreenState extends State<GableRoofCalculatorScreen> {
 
     // Convert cm to meters
     final a1 = a1cm / 100; // ширина основания
-    final d = dCm / 100;   // длина основания
-    final b = bCm / 100;   // высота подъема
-    final c = cCm / 100;   // длина свеса
+    final d = dCm / 100; // длина основания
+    final b = bCm / 100; // высота подъема
+    final c = cCm / 100; // длина свеса
 
     // Half-width for symmetric gable
     final halfWidth = a1 / 2;
@@ -238,7 +238,7 @@ class _GableRoofCalculatorScreenState extends State<GableRoofCalculatorScreen> {
       subtitle: '${totalArea.toStringAsFixed(2)} м² • $materialName',
       createdAt: now,
       icon: Icons.roofing,
-      iconBgColor: const Color(0xFFF0FDFA),
+      iconBgColor: AppColors.categoryTeal,
       iconColor: AppColors.primary,
       category: 'Кровля',
       result: result,
@@ -264,7 +264,7 @@ class _GableRoofCalculatorScreenState extends State<GableRoofCalculatorScreen> {
         backgroundColor: AppColors.background,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppColors.textPrimary),
+          icon: Icon(Icons.arrow_back, color: AppColors.textPrimary),
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
@@ -322,7 +322,11 @@ class _GableRoofCalculatorScreenState extends State<GableRoofCalculatorScreen> {
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Row(
                         children: [
-                          Icon(Icons.roofing, color: AppColors.primary, size: 22),
+                          Icon(
+                            Icons.roofing,
+                            color: AppColors.primary,
+                            size: 22,
+                          ),
                           const SizedBox(width: 12),
                           Text(
                             'Материал',
@@ -338,7 +342,7 @@ class _GableRoofCalculatorScreenState extends State<GableRoofCalculatorScreen> {
                               child: DropdownButton<String>(
                                 value: _roofingMaterial,
                                 isExpanded: true,
-                                icon: const Icon(
+                                icon: Icon(
                                   Icons.arrow_drop_down,
                                   color: AppColors.textHint,
                                 ),
@@ -444,7 +448,7 @@ class _GableRoofCalculatorScreenState extends State<GableRoofCalculatorScreen> {
                                 AnimatedRotation(
                                   turns: _parametersExpanded ? 0.5 : 0,
                                   duration: const Duration(milliseconds: 200),
-                                  child: const Icon(
+                                  child: Icon(
                                     Icons.expand_more,
                                     color: AppColors.textHint,
                                   ),
@@ -634,10 +638,7 @@ class _InputField extends StatelessWidget {
       child: TextField(
         controller: controller,
         keyboardType: const TextInputType.numberWithOptions(decimal: true),
-        style: GoogleFonts.inter(
-          fontSize: 18,
-          color: AppColors.textPrimary,
-        ),
+        style: GoogleFonts.inter(fontSize: 18, color: AppColors.textPrimary),
         decoration: InputDecoration(
           labelText: label,
           labelStyle: GoogleFonts.inter(

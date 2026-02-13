@@ -1,4 +1,3 @@
-import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -235,10 +234,6 @@ class _BrickCalculatorScreenState extends State<BrickCalculatorScreen> {
     final rowsPerM = 1 / (brickH + mortarM);
     final bricksPerM2Single = bricksPerRowM * rowsPerM;
 
-    // Total for wall thickness
-    final bricksPerM2 = bricksPerM2Single * (thicknessMult * 2);
-    // thicknessMult * 2 because half-brick = 1 layer of widthwise
-
     // Actually, the standard approach: number of bricks per m² depends on thickness:
     // Half brick = 1 layer → bricksPerM2Single
     // 1 brick = 2 layers → bricksPerM2Single * 2
@@ -250,7 +245,11 @@ class _BrickCalculatorScreenState extends State<BrickCalculatorScreen> {
     final totalBricks = (totalBricksPerM2 * netArea).ceil();
 
     // Mortar volume (approximate: 0.2-0.3 m³ per 1000 bricks for 10mm joints)
-    final mortarPer1000 = mortarMm == 5 ? 0.15 : mortarMm == 10 ? 0.25 : 0.35;
+    final mortarPer1000 = mortarMm == 5
+        ? 0.15
+        : mortarMm == 10
+        ? 0.25
+        : 0.35;
     final mortarVolume = totalBricks / 1000 * mortarPer1000;
 
     // Rows of bricks in wall height
@@ -264,9 +263,11 @@ class _BrickCalculatorScreenState extends State<BrickCalculatorScreen> {
     final meshArea = meshRows * perimeter * wallThicknessM;
 
     // Weight per brick (approximate)
-    final brickVolumeCm3 = (brick.length / 10) * (brick.width / 10) * (brick.height / 10);
+    final brickVolumeCm3 =
+        (brick.length / 10) * (brick.width / 10) * (brick.height / 10);
     final solidDensity = 1.8; // g/cm³ typical
-    final brickWeight = brickVolumeCm3 * solidDensity * (1 - hollowness / 100) / 1000; // kg
+    final brickWeight =
+        brickVolumeCm3 * solidDensity * (1 - hollowness / 100) / 1000; // kg
 
     final totalWeight = totalBricks * brickWeight;
 
@@ -306,23 +307,27 @@ class _BrickCalculatorScreenState extends State<BrickCalculatorScreen> {
       steps: [
         CalculationStep(
           title: '1. Общая площадь стен',
-          formula: 'S = $perimeter × ${wallHeightM.toStringAsFixed(2)} = '
+          formula:
+              'S = $perimeter × ${wallHeightM.toStringAsFixed(2)} = '
               '${grossArea.toStringAsFixed(2)} м²',
         ),
         if (gableArea > 0)
           CalculationStep(
             title: '2. Площадь фронтонов',
-            formula: 'S_ф = $gableCount × 0.5 × ${gableW.toStringAsFixed(2)} × '
+            formula:
+                'S_ф = $gableCount × 0.5 × ${gableW.toStringAsFixed(2)} × '
                 '${gableH.toStringAsFixed(2)} = ${gableArea.toStringAsFixed(2)} м²',
           ),
         if (windowArea > 0 || doorArea > 0)
           CalculationStep(
             title: '3. Вычет проёмов',
-            formula: 'S_окна = ${windowArea.toStringAsFixed(2)} м², '
+            formula:
+                'S_окна = ${windowArea.toStringAsFixed(2)} м², '
                 'S_двери = ${doorArea.toStringAsFixed(2)} м²',
           ),
         CalculationStep(
-          title: '${windowArea > 0 || doorArea > 0 || gableArea > 0 ? "4" : "2"}. Чистая площадь',
+          title:
+              '${windowArea > 0 || doorArea > 0 || gableArea > 0 ? "4" : "2"}. Чистая площадь',
           formula: 'S_нетто = ${netArea.toStringAsFixed(2)} м²',
         ),
         CalculationStep(
@@ -331,12 +336,14 @@ class _BrickCalculatorScreenState extends State<BrickCalculatorScreen> {
         ),
         CalculationStep(
           title: 'Общее количество',
-          formula: '${totalBricksPerM2.toStringAsFixed(1)} × ${netArea.toStringAsFixed(2)} = '
+          formula:
+              '${totalBricksPerM2.toStringAsFixed(1)} × ${netArea.toStringAsFixed(2)} = '
               '$totalBricks шт',
         ),
         CalculationStep(
           title: 'Объём раствора',
-          formula: '$totalBricks / 1000 × ${mortarPer1000.toStringAsFixed(2)} = '
+          formula:
+              '$totalBricks / 1000 × ${mortarPer1000.toStringAsFixed(2)} = '
               '${mortarVolume.toStringAsFixed(2)} м³',
         ),
       ],
@@ -349,7 +356,7 @@ class _BrickCalculatorScreenState extends State<BrickCalculatorScreen> {
       subtitle: '$totalBricks шт • ${brick.label.split(' ').take(2).join(' ')}',
       createdAt: now,
       icon: Icons.view_compact,
-      iconBgColor: const Color(0xFFFEF2F2),
+      iconBgColor: AppColors.categoryRed,
       iconColor: AppColors.primary,
       category: 'Кирпич',
       result: result,
@@ -375,7 +382,7 @@ class _BrickCalculatorScreenState extends State<BrickCalculatorScreen> {
         backgroundColor: AppColors.background,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppColors.textPrimary),
+          icon: Icon(Icons.arrow_back, color: AppColors.textPrimary),
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
@@ -406,7 +413,10 @@ class _BrickCalculatorScreenState extends State<BrickCalculatorScreen> {
                       child: DropdownButton<int>(
                         value: _selectedBrickIndex,
                         isExpanded: true,
-                        icon: const Icon(Icons.arrow_drop_down, color: AppColors.textHint),
+                        icon: Icon(
+                          Icons.arrow_drop_down,
+                          color: AppColors.textHint,
+                        ),
                         style: GoogleFonts.inter(
                           fontSize: 13,
                           fontWeight: FontWeight.w500,
@@ -422,7 +432,9 @@ class _BrickCalculatorScreenState extends State<BrickCalculatorScreen> {
                           );
                         }),
                         onChanged: (v) {
-                          if (v != null) setState(() => _selectedBrickIndex = v);
+                          if (v != null) {
+                            setState(() => _selectedBrickIndex = v);
+                          }
                         },
                       ),
                     ),
@@ -456,14 +468,20 @@ class _BrickCalculatorScreenState extends State<BrickCalculatorScreen> {
                       child: DropdownButton<String>(
                         value: _wallThickness,
                         isExpanded: true,
-                        icon: const Icon(Icons.arrow_drop_down, color: AppColors.textHint),
+                        icon: Icon(
+                          Icons.arrow_drop_down,
+                          color: AppColors.textHint,
+                        ),
                         style: GoogleFonts.inter(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                           color: AppColors.textPrimary,
                         ),
                         items: _thicknessLabels.entries.map((e) {
-                          return DropdownMenuItem(value: e.key, child: Text(e.value));
+                          return DropdownMenuItem(
+                            value: e.key,
+                            child: Text(e.value),
+                          );
                         }).toList(),
                         onChanged: (v) {
                           if (v != null) setState(() => _wallThickness = v);
@@ -481,14 +499,20 @@ class _BrickCalculatorScreenState extends State<BrickCalculatorScreen> {
                       child: DropdownButton<String>(
                         value: _mortarThickness,
                         isExpanded: true,
-                        icon: const Icon(Icons.arrow_drop_down, color: AppColors.textHint),
+                        icon: Icon(
+                          Icons.arrow_drop_down,
+                          color: AppColors.textHint,
+                        ),
                         style: GoogleFonts.inter(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                           color: AppColors.textPrimary,
                         ),
                         items: _mortarLabels.entries.map((e) {
-                          return DropdownMenuItem(value: e.key, child: Text(e.value));
+                          return DropdownMenuItem(
+                            value: e.key,
+                            child: Text(e.value),
+                          );
                         }).toList(),
                         onChanged: (v) {
                           if (v != null) setState(() => _mortarThickness = v);
@@ -506,14 +530,20 @@ class _BrickCalculatorScreenState extends State<BrickCalculatorScreen> {
                       child: DropdownButton<String>(
                         value: _meshFrequency,
                         isExpanded: true,
-                        icon: const Icon(Icons.arrow_drop_down, color: AppColors.textHint),
+                        icon: Icon(
+                          Icons.arrow_drop_down,
+                          color: AppColors.textHint,
+                        ),
                         style: GoogleFonts.inter(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                           color: AppColors.textPrimary,
                         ),
                         items: _meshLabels.entries.map((e) {
-                          return DropdownMenuItem(value: e.key, child: Text(e.value));
+                          return DropdownMenuItem(
+                            value: e.key,
+                            child: Text(e.value),
+                          );
                         }).toList(),
                         onChanged: (v) {
                           if (v != null) setState(() => _meshFrequency = v);
@@ -547,7 +577,8 @@ class _BrickCalculatorScreenState extends State<BrickCalculatorScreen> {
                     title: 'Фронтоны',
                     icon: Icons.change_history,
                     expanded: _gablesExpanded,
-                    onTap: () => setState(() => _gablesExpanded = !_gablesExpanded),
+                    onTap: () =>
+                        setState(() => _gablesExpanded = !_gablesExpanded),
                     children: [
                       _InputField(
                         controller: _gableCountController,
@@ -579,7 +610,8 @@ class _BrickCalculatorScreenState extends State<BrickCalculatorScreen> {
                     title: 'Учесть окна и двери',
                     icon: Icons.door_front_door,
                     expanded: _openingsExpanded,
-                    onTap: () => setState(() => _openingsExpanded = !_openingsExpanded),
+                    onTap: () =>
+                        setState(() => _openingsExpanded = !_openingsExpanded),
                     children: [
                       _InputField(
                         controller: _windowHeightController,
@@ -754,7 +786,7 @@ class _BrickCalculatorScreenState extends State<BrickCalculatorScreen> {
                   AnimatedRotation(
                     turns: expanded ? 0.5 : 0,
                     duration: const Duration(milliseconds: 200),
-                    child: const Icon(Icons.expand_more, color: AppColors.textHint),
+                    child: Icon(Icons.expand_more, color: AppColors.textHint),
                   ),
                 ],
               ),
@@ -819,9 +851,15 @@ class _InputField extends StatelessWidget {
           ),
           prefixIcon: Icon(icon, color: AppColors.primary, size: 22),
           suffixText: unit,
-          suffixStyle: GoogleFonts.inter(fontSize: 14, color: AppColors.textHint),
+          suffixStyle: GoogleFonts.inter(
+            fontSize: 14,
+            color: AppColors.textHint,
+          ),
           border: InputBorder.none,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 16,
+          ),
         ),
       ),
     );

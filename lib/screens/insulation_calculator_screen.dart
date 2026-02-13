@@ -1,4 +1,3 @@
-import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -175,7 +174,8 @@ class _InsulationCalculatorScreenState
         MaterialItem(
           name: materialName,
           quantity: '${volume.toStringAsFixed(2)} м³',
-          details: '~${weight.toStringAsFixed(0)} кг (плотность ${density.toStringAsFixed(0)} кг/м³)',
+          details:
+              '~${weight.toStringAsFixed(0)} кг (плотность ${density.toStringAsFixed(0)} кг/м³)',
           isChecked: true,
         ),
         MaterialItem(
@@ -197,7 +197,8 @@ class _InsulationCalculatorScreenState
       steps: [
         CalculationStep(
           title: '1. Площадь стен (брутто)',
-          formula: 'S = $perimeter × ${wallHeightM.toStringAsFixed(2)} = '
+          formula:
+              'S = $perimeter × ${wallHeightM.toStringAsFixed(2)} = '
               '${grossArea.toStringAsFixed(2)} м²',
         ),
         if (gableArea > 0)
@@ -208,7 +209,8 @@ class _InsulationCalculatorScreenState
         if (windowArea > 0 || doorArea > 0)
           CalculationStep(
             title: '3. Вычет проёмов',
-            formula: 'Окна: ${windowArea.toStringAsFixed(2)} м², '
+            formula:
+                'Окна: ${windowArea.toStringAsFixed(2)} м², '
                 'Двери: ${doorArea.toStringAsFixed(2)} м²',
           ),
         CalculationStep(
@@ -217,18 +219,21 @@ class _InsulationCalculatorScreenState
         ),
         CalculationStep(
           title: 'Объём утеплителя',
-          formula: 'V = ${netArea.toStringAsFixed(2)} × ${thicknessM.toStringAsFixed(2)} = '
+          formula:
+              'V = ${netArea.toStringAsFixed(2)} × ${thicknessM.toStringAsFixed(2)} = '
               '${volume.toStringAsFixed(2)} м³',
         ),
         CalculationStep(
           title: 'Масса утеплителя',
-          formula: 'M = ${volume.toStringAsFixed(2)} × ${density.toStringAsFixed(0)} = '
+          formula:
+              'M = ${volume.toStringAsFixed(2)} × ${density.toStringAsFixed(0)} = '
               '${weight.toStringAsFixed(0)} кг',
         ),
         if (pricePerM3 > 0)
           CalculationStep(
             title: 'Стоимость',
-            formula: 'Утеплитель: $insulationCost ₽, '
+            formula:
+                'Утеплитель: $insulationCost ₽, '
                 'Дюбели: $dowelCost ₽, '
                 'Итого: $totalCost ₽',
           ),
@@ -242,7 +247,7 @@ class _InsulationCalculatorScreenState
       subtitle: '${volume.toStringAsFixed(2)} м³ • $materialName',
       createdAt: now,
       icon: Icons.ac_unit,
-      iconBgColor: const Color(0xFFFFFBEB),
+      iconBgColor: AppColors.categoryYellow,
       iconColor: AppColors.primary,
       category: 'Утепление',
       result: result,
@@ -267,7 +272,7 @@ class _InsulationCalculatorScreenState
         backgroundColor: AppColors.background,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppColors.textPrimary),
+          icon: Icon(Icons.arrow_back, color: AppColors.textPrimary),
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
@@ -297,14 +302,20 @@ class _InsulationCalculatorScreenState
                       child: DropdownButton<String>(
                         value: _insulationType,
                         isExpanded: true,
-                        icon: const Icon(Icons.arrow_drop_down, color: AppColors.textHint),
+                        icon: Icon(
+                          Icons.arrow_drop_down,
+                          color: AppColors.textHint,
+                        ),
                         style: GoogleFonts.inter(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                           color: AppColors.textPrimary,
                         ),
                         items: _insulationLabels.entries.map((e) {
-                          return DropdownMenuItem(value: e.key, child: Text(e.value));
+                          return DropdownMenuItem(
+                            value: e.key,
+                            child: Text(e.value),
+                          );
                         }).toList(),
                         onChanged: (v) {
                           if (v != null) setState(() => _insulationType = v);
@@ -376,7 +387,8 @@ class _InsulationCalculatorScreenState
                     title: 'Фронтоны',
                     icon: Icons.change_history,
                     expanded: _gablesExpanded,
-                    onTap: () => setState(() => _gablesExpanded = !_gablesExpanded),
+                    onTap: () =>
+                        setState(() => _gablesExpanded = !_gablesExpanded),
                     children: [
                       _InputField(
                         controller: _gableCountController,
@@ -407,7 +419,8 @@ class _InsulationCalculatorScreenState
                     title: 'Учесть окна и двери',
                     icon: Icons.door_front_door,
                     expanded: _openingsExpanded,
-                    onTap: () => setState(() => _openingsExpanded = !_openingsExpanded),
+                    onTap: () =>
+                        setState(() => _openingsExpanded = !_openingsExpanded),
                     children: [
                       _InputField(
                         controller: _windowHeightController,
@@ -582,7 +595,7 @@ class _InsulationCalculatorScreenState
                   AnimatedRotation(
                     turns: expanded ? 0.5 : 0,
                     duration: const Duration(milliseconds: 200),
-                    child: const Icon(Icons.expand_more, color: AppColors.textHint),
+                    child: Icon(Icons.expand_more, color: AppColors.textHint),
                   ),
                 ],
               ),
@@ -647,9 +660,15 @@ class _InputField extends StatelessWidget {
           ),
           prefixIcon: Icon(icon, color: AppColors.primary, size: 22),
           suffixText: unit,
-          suffixStyle: GoogleFonts.inter(fontSize: 14, color: AppColors.textHint),
+          suffixStyle: GoogleFonts.inter(
+            fontSize: 14,
+            color: AppColors.textHint,
+          ),
           border: InputBorder.none,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 16,
+          ),
         ),
       ),
     );

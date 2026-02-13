@@ -46,11 +46,31 @@ class _RoofingCalculatorScreenState extends State<RoofingCalculatorScreen> {
 
   // Sheet dimensions in meters per material type
   Map<String, _SheetSize> get _sheetSizes => {
-    'profnastil': const _SheetSize(width: 1.05, height: 2.0, name: 'лист 1.05×2.0 м'),
-    'metallocherepitsa': const _SheetSize(width: 1.10, height: 2.20, name: 'лист 1.10×2.20 м'),
-    'ondulin': const _SheetSize(width: 0.95, height: 2.0, name: 'лист 0.95×2.0 м'),
-    'shifer': const _SheetSize(width: 0.98, height: 1.75, name: 'лист 0.98×1.75 м'),
-    'myagkaya': const _SheetSize(width: 1.0, height: 0.33, name: 'гонт 1.0×0.33 м'),
+    'profnastil': const _SheetSize(
+      width: 1.05,
+      height: 2.0,
+      name: 'лист 1.05×2.0 м',
+    ),
+    'metallocherepitsa': const _SheetSize(
+      width: 1.10,
+      height: 2.20,
+      name: 'лист 1.10×2.20 м',
+    ),
+    'ondulin': const _SheetSize(
+      width: 0.95,
+      height: 2.0,
+      name: 'лист 0.95×2.0 м',
+    ),
+    'shifer': const _SheetSize(
+      width: 0.98,
+      height: 1.75,
+      name: 'лист 0.98×1.75 м',
+    ),
+    'myagkaya': const _SheetSize(
+      width: 1.0,
+      height: 0.33,
+      name: 'гонт 1.0×0.33 м',
+    ),
   };
 
   @override
@@ -91,8 +111,13 @@ class _RoofingCalculatorScreenState extends State<RoofingCalculatorScreen> {
     final t1 = _parseNumber(_t1Controller.text);
     final t2 = _parseNumber(_t2Controller.text);
 
-    if (a == null || d == null || b == null ||
-        k1 == null || k2 == null || t1 == null || t2 == null) {
+    if (a == null ||
+        d == null ||
+        b == null ||
+        k1 == null ||
+        k2 == null ||
+        t1 == null ||
+        t2 == null) {
       _showValidationError('Введите корректные числовые значения');
       return;
     }
@@ -200,7 +225,8 @@ class _RoofingCalculatorScreenState extends State<RoofingCalculatorScreen> {
         ),
         CalculationStep(
           title: '4. Угол наклона',
-          formula: 'α = arctan(B / (A+K1+K2)) = ${slopeAngleDeg.toStringAsFixed(1)}°',
+          formula:
+              'α = arctan(B / (A+K1+K2)) = ${slopeAngleDeg.toStringAsFixed(1)}°',
         ),
         CalculationStep(
           title: '5. С учётом запаса (${_reserve.round()}%)',
@@ -211,7 +237,7 @@ class _RoofingCalculatorScreenState extends State<RoofingCalculatorScreen> {
         CalculationStep(
           title: '6. Количество листов ($materialName)',
           formula:
-              'По ширине: ${sheetsAcross} шт, по высоте: ${sheetsDown} шт → итого $totalSheets листов',
+              'По ширине: $sheetsAcross шт, по высоте: $sheetsDown шт → итого $totalSheets листов',
         ),
       ],
     );
@@ -223,7 +249,7 @@ class _RoofingCalculatorScreenState extends State<RoofingCalculatorScreen> {
       subtitle: '${totalArea.toStringAsFixed(2)} м² • $materialName',
       createdAt: now,
       icon: Icons.roofing,
-      iconBgColor: const Color(0xFFF0FDFA),
+      iconBgColor: AppColors.categoryTeal,
       iconColor: AppColors.primary,
       category: 'Кровля',
       result: result,
@@ -249,7 +275,7 @@ class _RoofingCalculatorScreenState extends State<RoofingCalculatorScreen> {
         backgroundColor: AppColors.background,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppColors.textPrimary),
+          icon: Icon(Icons.arrow_back, color: AppColors.textPrimary),
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
@@ -411,7 +437,7 @@ class _RoofingCalculatorScreenState extends State<RoofingCalculatorScreen> {
                             padding: const EdgeInsets.all(16),
                             child: Row(
                               children: [
-                                const Icon(
+                                Icon(
                                   Icons.tune,
                                   color: AppColors.primary,
                                   size: 20,
@@ -429,7 +455,7 @@ class _RoofingCalculatorScreenState extends State<RoofingCalculatorScreen> {
                                 AnimatedRotation(
                                   turns: _parametersExpanded ? 0.5 : 0,
                                   duration: const Duration(milliseconds: 200),
-                                  child: const Icon(
+                                  child: Icon(
                                     Icons.expand_more,
                                     color: AppColors.textHint,
                                   ),
@@ -470,7 +496,7 @@ class _RoofingCalculatorScreenState extends State<RoofingCalculatorScreen> {
                                     child: DropdownButton<String>(
                                       value: _roofingMaterial,
                                       isExpanded: true,
-                                      icon: const Icon(
+                                      icon: Icon(
                                         Icons.arrow_drop_down,
                                         color: AppColors.textHint,
                                       ),
@@ -653,14 +679,12 @@ class _InputField extends StatelessWidget {
   final String label;
   final String unit;
   final IconData icon;
-  final String? hint;
 
   const _InputField({
     required this.controller,
     required this.label,
     required this.unit,
     required this.icon,
-    this.hint,
   });
 
   @override
@@ -714,17 +738,6 @@ class _InputField extends StatelessWidget {
             ),
           ),
         ),
-        if (hint != null)
-          Padding(
-            padding: const EdgeInsets.only(left: 16, top: 4),
-            child: Text(
-              hint!,
-              style: GoogleFonts.inter(
-                fontSize: 11,
-                color: AppColors.textHint,
-              ),
-            ),
-          ),
       ],
     );
   }

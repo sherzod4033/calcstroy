@@ -156,7 +156,7 @@ class _RoofCard extends StatelessWidget {
                 child: Container(
                   width: double.infinity,
                   height: 180,
-                  color: const Color(0xFFF5F5F5),
+                  color: AppColors.secondaryBackground,
                   padding: const EdgeInsets.all(16),
                   child: Image.asset(
                     roof.imagePath,
